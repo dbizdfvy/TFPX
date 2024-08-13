@@ -3,10 +3,14 @@ Given paths to two RTD readout file,
 Trims the data to the given intervals according to splitFile function and overlays two of the graphs
 '''
 
-import ROOT, csv, os,sys
 from array import array
-sys.path.insert(1,'/home/yehyun/TFPX/final-codes/utils')
+import csv
+import os, sys
+current_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(f"{current_directory}/../../utils")
 from pyutils import column, floatList, splitData, offSet, scale
+import ROOT
+
 
 def multiGraph(data):
     mg = ROOT.TMultiGraph()
@@ -16,11 +20,9 @@ def multiGraph(data):
         x = data[i][0]
         y = data[i][1]
 
-
         graph = ROOT.TGraph(len(x),array('d',x),array('d',y))
         mg.Add(graph)
 
-    
     canvas = ROOT.TCanvas("canvas","Multigraph Canvas",800,600)
     #mg.SetTitle("Comparison of Two Data Points")
     mg.Draw("A")
@@ -28,6 +30,7 @@ def multiGraph(data):
     canvas.Update()
     canvas.SaveAs("multigraph_variable.png")
     canvas.Show()
+
 
 #paths to the RTD readout files.
 pathA = r"/home/yehyun/data/port_card_0702.csv"
@@ -40,7 +43,7 @@ data = []
 
 with open(pathA) as file:
     dataA = list(csv.reader(file))
-   
+
     timeA = splitData(column(dataA,2),intervalsA)
 
     for i in range(len(timeA)):
@@ -61,7 +64,7 @@ data[0].append(tempA[0])
 
 with open(pathB) as file: 
     dataB = list(csv.reader(file))
-    
+
     timeB = splitData(column(dataB,2),intervalsB)
 
     for i in range(len(timeB)):

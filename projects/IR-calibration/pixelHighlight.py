@@ -5,7 +5,6 @@ and overlays it on top of an IR image from file path.
 '''
 
 import seaborn as sn, matplotlib.pyplot as plt, pandas as pd, numpy as np,sys
-sys.path.insert(1,'/home/yehyun/TFPX/final-codes/utils')
 from excelCoords import excelCoords
 
 vPath = r"/home/yehyun/TFPX/final-codes/projects/IR-calibration/example/vertices.csv"

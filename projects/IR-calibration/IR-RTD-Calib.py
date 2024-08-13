@@ -11,11 +11,14 @@ and does a linear approximation to get the RTD temperature at the time the IR im
 The averaged IR temperature and the RTD temperature are logged for calibration
 '''
 
-import os, csv, sys, pandas as pd
-sys.path.insert(1,'/home/yehyun/TFPX/final-codes/utils') #need to rewrite this
+import csv, pandas as pd
 from excelCoords import excelCoords
 from polygon import polyPoints
+import os, sys
+current_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(f"{current_directory}/../../utils")
 from pyutils import closest, linApprox
+
 
 def polyAverage(vPath, fPath):
     coords = excelCoords(vPath)
@@ -28,6 +31,7 @@ def polyAverage(vPath, fPath):
          num += float(data[coords[i][0]][coords[i][1]])
 
     return num/len(coords)
+
 
 #Gets the file paths. Replacing the input statements with static variables is recommended.
 dirPath = input("Input IR folder filepath: ")
